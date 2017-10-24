@@ -37,6 +37,9 @@ about:
     cymem provides two small memory-management helpers for Cython. They make it
     easy to tie memory to a Python object’s life-cycle, so that the memory is
     freed when the object is garbage collected.
+  doc_url: https://pypi.python.org/pypi/cymem
+  doc_source_url: https://github.com/explosion/cymem/blob/master/README.rst
+  dev_url: https://github.com/explosion/cymem
 
 extra:
   recipe-maintainers:

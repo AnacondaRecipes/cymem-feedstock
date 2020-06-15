@@ -1,6 +1,6 @@
 {% set name = "cymem" %}
-{% set version = "2.0.2" %}
-{% set sha256sum = "ab88b1534f06df07262d9bc5efb3ba07948cdbe9a363eb9eaa4ad42fae6c7b5e" %}
+{% set version = "2.0.3" %}
+{% set sha256sum = "5083b2ab5fe13ced094a82e0df465e2dbbd9b1c013288888035e24fd6eb4ed01" %}
 
 package:
   name: {{ name }}
@@ -10,19 +10,25 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256sum }}
+  patches:
+    - patches/0001-remove-setup_requires.patch
 
 build:
   number: 0
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  script: {{ PYTHON }} -m pip install --no-deps --ignore-installed .
+  skip: True  # [win32 or linux32]
 
 requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
   host:
+    - cython
+    - pip
     - python
     - setuptools
-    # setup.py has wheel entry for setup_requires
-    - wheel >=0.32.0,<0.33.0
-  build:
-    - {{ compiler('cxx') }}
+    - wheel
+
   run:
     - python
 
@@ -39,10 +45,10 @@ about:
     cymem provides two small memory-management helpers for Cython. They make it
     easy to tie memory to a Python object’s life-cycle, so that the memory is
     freed when the object is garbage collected.
-  doc_url: https://pypi.python.org/pypi/cymem
-  doc_source_url: https://github.com/explosion/cymem/blob/master/README.rst
-  dev_url: https://github.com/explosion/cymem
-
 extra:
   recipe-maintainers:
     - rmax
+    - h-vetinari
+    - ines
+    - honnibal
+    - adrianeboyd

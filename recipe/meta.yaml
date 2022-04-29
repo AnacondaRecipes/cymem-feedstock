@@ -42,6 +42,7 @@ test:
 about:
   home: https://github.com/explosion/cymem
   license: MIT
+  license_family: MIT
   license_file: LICENSE
   summary: Manage calls to calloc/free through Cython
   description: |

@@ -1,6 +1,6 @@
 {% set name = "cymem" %}
-{% set version = "2.0.5" %}
-{% set sha256sum = "190e15d9cf2c3bde60ae37bddbae6568a36044dc4a326d84081a5fa08818eee0" %}
+{% set version = "2.0.6" %}
+{% set sha256sum = "169725b5816959d34de2545b33fee6a8021a6e08818794a426c5a4f981f17e5e" %}
 
 package:
   name: {{ name }}
@@ -21,28 +21,36 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
-    - cython
+    - cython >=0.25
     - pip
     - python
     - setuptools
     - wheel
-
   run:
     - python
 
 test:
   requires:
+    - pip
     - pytest
+  imports:
+    - cymem
+  commands:
+    - pip check
+    - python -m pytest --tb=native --pyargs cymem
 
 about:
   home: https://github.com/explosion/cymem
   license: MIT
+  license_family: MIT
   license_file: LICENSE
   summary: Manage calls to calloc/free through Cython
   description: |
     cymem provides two small memory-management helpers for Cython. They make it
     easy to tie memory to a Python object’s life-cycle, so that the memory is
     freed when the object is garbage collected.
+  dev_url: https://github.com/explosion/cymem
+  doc_url: https://github.com/explosion/cymem/blob/master/README.md
 extra:
   recipe-maintainers:
     - rmax

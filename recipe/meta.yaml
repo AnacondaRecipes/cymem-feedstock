@@ -21,18 +21,23 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
-    - cython
+    - cython >=0.25
     - pip
     - python
     - setuptools
     - wheel
-
   run:
     - python
 
 test:
   requires:
+    - pip
     - pytest
+  imports:
+    - cymem
+  commands:
+    - pip check
+    - python -m pytest --tb=native --pyargs cymem
 
 about:
   home: https://github.com/explosion/cymem
@@ -43,6 +48,8 @@ about:
     cymem provides two small memory-management helpers for Cython. They make it
     easy to tie memory to a Python object’s life-cycle, so that the memory is
     freed when the object is garbage collected.
+  dev_url: https://github.com/explosion/cymem
+  doc_url: https://github.com/explosion/cymem/blob/master/README.md
 extra:
   recipe-maintainers:
     - rmax

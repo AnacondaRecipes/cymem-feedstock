@@ -1,6 +1,6 @@
 {% set name = "cymem" %}
-{% set version = "2.0.6" %}
-{% set sha256sum = "169725b5816959d34de2545b33fee6a8021a6e08818794a426c5a4f981f17e5e" %}
+{% set version = "2.0.7" %}
+{% set sha256sum = "e6034badb5dd4e10344211c81f16505a55553a7164adc314c75bd80cf07e57a8" %}
 
 package:
   name: {{ name }}

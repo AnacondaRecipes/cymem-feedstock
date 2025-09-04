@@ -1,43 +1,41 @@
 {% set name = "cymem" %}
-{% set version = "2.0.6" %}
-{% set sha256sum = "169725b5816959d34de2545b33fee6a8021a6e08818794a426c5a4f981f17e5e" %}
+{% set version = "2.0.11" %}
 
 package:
-  name: {{ name }}
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256sum }}
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: efe49a349d4a518be6b6c6b255d4a80f740a341544bde1a807707c058b88d0bd
 
 build:
-  number: 1
-  script: {{ PYTHON }} -m pip install --no-deps --ignore-installed .
-  skip: True  # [win32 or linux32]
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
-    - cython >=0.25
     - pip
     - python
     - setuptools
-    - wheel
+    - cython >=0.25
   run:
     - python
 
 test:
+  imports:
+    - cymem
   requires:
     - pip
     - pytest
-  imports:
-    - cymem
   commands:
     - pip check
-    - python -m pytest --tb=native --pyargs cymem
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest --pyargs cymem
 
 about:
   home: https://github.com/explosion/cymem
@@ -51,6 +49,7 @@ about:
     freed when the object is garbage collected.
   dev_url: https://github.com/explosion/cymem
   doc_url: https://github.com/explosion/cymem/blob/master/README.md
+
 extra:
   recipe-maintainers:
     - rmax

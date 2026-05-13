@@ -1,5 +1,5 @@
 {% set name = "cymem" %}
-{% set version = "2.0.11" %}
+{% set version = "2.0.13" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: efe49a349d4a518be6b6c6b255d4a80f740a341544bde1a807707c058b88d0bd
+  sha256: 1c91a92ae8c7104275ac26bd4d29b08ccd3e7faff5893d3858cb6fadf1bc1588
 
 build:
   number: 0
@@ -22,7 +22,7 @@ requirements:
     - pip
     - python
     - setuptools
-    - cython >=0.25
+    - cython >=3.1
   run:
     - python
 
